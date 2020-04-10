@@ -1,5 +1,5 @@
 const covid19ImpactEstimator = (data) => {
-const {
+  const {
     reportedCases,
     timeToElapse,
     periodType,
