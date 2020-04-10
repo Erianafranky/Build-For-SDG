@@ -23,7 +23,7 @@ const covid19ImpactEstimator = (data) => {
   const impactCurrentlyInfected = reportedCases * 10;
   const impactInfectionsByRequestedTime = impactCurrentlyInfected * (2 ** factor);
   const casesByRequestedTime = Math.ceil(impactInfectionsByRequestedTime * 0.15);
-  const beds = Math.ceil(totalHospitalBeds * 0.35)
+  const beds = Math.ceil(totalHospitalBeds * 0.35);
   const impactHospitalBedsByRequestedTime = Math.ceil(beds - casesByRequestedTime);
   const impactCasesForICUByRequestedTime = impactInfectionsByRequestedTime * 0.05;
   const impactCasesForVentilatorsByRequestedTime = impactInfectionsByRequestedTime * 0.02;
