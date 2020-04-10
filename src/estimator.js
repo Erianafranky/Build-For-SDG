@@ -26,8 +26,8 @@ const covid19ImpactEstimator = (data) => {
   const beds = Math.ceil(totalHospitalBeds * 0.35);
   const impactHospitalBedsByRequestedTime = Math.ceil(beds - casesByRequestedTime);
   const impactCasesForICUByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.05);
-  const impactCasesForVentilatorsByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.02);
-  const impactDollarsInFlight = Math.floor((impactInfectionsByRequestedTime 
+  const ventilatorsCasesByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.02);
+  const impactDollarsInFlight = Math.floor((impactInfectionsByRequestedTime
                                 * region.avgDailyIncomePopulation
                                 * region.avgDailyIncomeInUSD) / period);
 
@@ -37,8 +37,8 @@ const covid19ImpactEstimator = (data) => {
   const severeCasesByRequestedTime = Math.ceil(severeImpactInfectionsByRequestedTime * 0.15);
   const hospitalBedsByRequestedTime = Math.ceil(beds - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = Math.floor(severeImpactInfectionsByRequestedTime * 0.05);
-  const casesForVentilatorsByRequestedTime = Math.floor(severeImpactInfectionsByRequestedTime * 0.02);
-  const dollarsInFlight = Math.floor((severeImpactInfectionsByRequestedTime 
+  const casesForVentilatorsByTime = Math.floor(severeImpactInfectionsByRequestedTime * 0.02);
+  const dollarsInFlight = Math.floor((severeImpactInfectionsByRequestedTime
                           * region.avgDailyIncomePopulation
                           * region.avgDailyIncomeInUSD) / period);
 
@@ -49,17 +49,17 @@ const covid19ImpactEstimator = (data) => {
     severeCasesByRequestedTime: casesByRequestedTime,
     hospitalBedsByRequestedTime: impactHospitalBedsByRequestedTime,
     casesForICUByRequestedTime: impactCasesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime: impactCasesForVentilatorsByRequestedTime,
+    casesForVentilatorsByRequestedTime: ventilatorsCasesByRequestedTime,
     dollarsInFlight: impactDollarsInFlight
   };
 
   const severeImpact = {
     currentlyInfected: severeImpactCurrentlyInfected,
     infectionsByRequestedTime: severeImpactInfectionsByRequestedTime,
+    casesForVentilatorsByRequestedTime: casesForVentilatorsByTime,
     severeCasesByRequestedTime,
     hospitalBedsByRequestedTime,
     casesForICUByRequestedTime,
-    casesForVentilatorsByRequestedTime,
     dollarsInFlight
   };
 
