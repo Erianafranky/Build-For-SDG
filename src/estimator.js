@@ -25,20 +25,22 @@ const covid19ImpactEstimator = (data) => {
   const casesByRequestedTime = Math.ceil(impactInfectionsByRequestedTime * 0.15);
   const beds = Math.ceil(totalHospitalBeds * 0.35);
   const impactHospitalBedsByRequestedTime = Math.ceil(beds - casesByRequestedTime);
-  const impactCasesForICUByRequestedTime = impactInfectionsByRequestedTime * 0.05;
-  const impactCasesForVentilatorsByRequestedTime = impactInfectionsByRequestedTime * 0.02;
-  const impactDollarsInFlight = impactInfectionsByRequestedTime * region.avgDailyIncomePopulation
-                                    * region.avgDailyIncomeInUSD * period;
+  const impactCasesForICUByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.05);
+  const impactCasesForVentilatorsByRequestedTime = Math.floor(impactInfectionsByRequestedTime * 0.02);
+  const impactDollarsInFlight = Math.floor((impactInfectionsByRequestedTime 
+                                * region.avgDailyIncomePopulation
+                                * region.avgDailyIncomeInUSD) / period);
 
   // severe impact estimations
   const severeImpactCurrentlyInfected = reportedCases * 50;
   const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * (2 ** factor);
   const severeCasesByRequestedTime = Math.ceil(severeImpactInfectionsByRequestedTime * 0.15);
   const hospitalBedsByRequestedTime = Math.ceil(beds - severeCasesByRequestedTime);
-  const casesForICUByRequestedTime = severeImpactInfectionsByRequestedTime * 0.05;
-  const casesForVentilatorsByRequestedTime = severeImpactInfectionsByRequestedTime * 0.02;
-  const dollarsInFlight = severeImpactInfectionsByRequestedTime * region.avgDailyIncomePopulation
-                            * region.avgDailyIncomeInUSD * period;
+  const casesForICUByRequestedTime = Math.floor(severeImpactInfectionsByRequestedTime * 0.05);
+  const casesForVentilatorsByRequestedTime = Math.floor(severeImpactInfectionsByRequestedTime * 0.02);
+  const dollarsInFlight = Math.floor((severeImpactInfectionsByRequestedTime 
+                          * region.avgDailyIncomePopulation
+                          * region.avgDailyIncomeInUSD) / period);
 
 
   const impact = {
